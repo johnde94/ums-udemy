@@ -1,4 +1,5 @@
-<form action="" class="userForm">
+<form action="" class="userForm" #f="ngForm"  >
+    <input type="hidden" name="id" [(ngModel)]="user.id">
     <div class="form-group">
         <label for="firstname">Firstname:</label>
         <input [(ngModel)]="user.name" name="firstname" id="firstname">
@@ -28,6 +29,7 @@
         <input [(ngModel)]="user.age" type="number" name="age" id="age">
     </div>
     <div class="form-group form-footer">
-        <button class="btn-save"> SAVE</button>
+        <button class="btn-reset" (click)="resetForm(f.form)"> RESET</button>
+        <button class="btn-save" (click)="saveUser()"> SAVE</button>
     </div>
 </form>
