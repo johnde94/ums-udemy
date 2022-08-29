@@ -1,6 +1,7 @@
 import { UserService } from '../services/user.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from '../classes/User';
+import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'tr[app-user]',
@@ -11,6 +12,8 @@ export class UserComponent implements OnInit {
   @Input('user-data') user: User | undefined; 
   @Output ('onDeleteUser') userDeleted = new EventEmitter;
   @Output('onSelectUser') onSelectUser = new EventEmitter();
+  faPencil = faPencil;
+  faTrash = faTrash;
   constructor(private userService : UserService) { 
 
   }
