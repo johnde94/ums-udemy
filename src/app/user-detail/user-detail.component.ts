@@ -1,6 +1,8 @@
 import { UserService } from './../services/user.service';
-import { User } from './../classes/User';
 import { Component, Input, OnInit } from '@angular/core';
+import { User } from '../classes/User';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-detail',
@@ -8,40 +10,51 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./user-detail.component.css']
 })
 export class UserDetailComponent implements OnInit {
-
-  private userCopy: User;
+  private usercopy: User;
   private __user: User;
-  @Input() set user(user: User){
+
+  @Input() set user(user: User) {
     this.__user = user;
-    this.userCopy = Object.assign({}, user);
-  } 
-  get user(){
+    this.usercopy = Object.assign({}, user);
+  }
+
+  get user() {
     return this.__user;
   }
-  userService: UserService;
 
-
-
-  constructor(userService: UserService) { 
-    this.userService = userService;
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
+    this.user = new User();
+    this.__user = new User();
+    this.usercopy = new User();
   }
 
   ngOnInit(): void {
-  }
+    this.route.params.subscribe(param => {
+      const id = Number(param['id']); // '12'
+      const user = this.userService.getUser(id);
+      if (user) {
+        this.user = user;
+      }
 
-  saveUser(){
-    if(this.user.id>0){
+    });
+  }
+  saveUser() {
+
+    if (this.user.id > 0) {
       this.userService.updateUser(this.user);
-    } else {
+    }
+    else {
       this.userService.createUser(this.user);
     }
+    this.router.navigate(["users"])
   }
-  resetForm(form){
-    if(this.user.id === 0){
+  resetForm(form: FormGroup) {
+
+    if (this.user.id === 0) {
       this.user = new User();
     } else {
-      this.user = this.userCopy;
+      this.user = this.usercopy;
     }
-  }
 
+  }
 }
