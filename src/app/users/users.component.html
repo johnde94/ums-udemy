@@ -11,9 +11,9 @@
             <th>Actions</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="(users$ | async) as users">
         <!--vedere nel componente "app-user.ts" la mappatura sotto la proprietà "selector" -->
-        <tr app-user *ngFor="let user of users" [user-data]="user" (onDeleteUser)="onDeleteUser($event)"
+        <tr app-user *ngFor="let user of users" id="{{user.id}}" [user-data]="user" (onDeleteUser)="onDeleteUser($event)"
             (onSelectUser)="onSelectUser($event)">
         </tr>
     </tbody>

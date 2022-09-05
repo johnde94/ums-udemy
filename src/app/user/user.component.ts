@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class UserComponent implements OnInit {
   @Input('user-data') user: User | undefined; 
-  @Output ('onDeleteUser') userDeleted = new EventEmitter;
+  @Output ('onDeleteUser') userDeleted = new EventEmitter();
   @Output('onSelectUser') onSelectUser = new EventEmitter();
   faPencil = faPencil;
   faTrash = faTrash;
